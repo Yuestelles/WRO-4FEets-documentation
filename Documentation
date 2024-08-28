@@ -1,1 +1,78 @@
+https://github.com/Yuestelles/WRO-4FEets-documentation/tree/main
+
+Contents: page
+
+Mobility Management:	1
+Power and Sense of Management	3
+Wiring Diagram	5
+Obstacle Management	5
+Strategy Flow Chart	6
+List of Components Used	7
+
+Mobility Management: 
+Our robot is built with four wheels whereby the front wheels control the steering and the back wheels control the drive. 
+Steering: 
+For the front wheels, we used LEGO parts to build the structure around the wheels. LEGO was used because LEGO is easily adjustable, sturdy and can be tailored to the size and needs of the robot accordingly. We used it to put together a frame around the wheels to create Ackerman’s steering, whereby the wheels are able to move side to side instead of just rolling front and back. When the wheels turn, the inner wheel will turn at a greater angle and then the inner one. For example, if the wheels turn right, the right wheel will turn at a greater angle than the left wheel. This structure is built when the joint that connects the front beam to the wheel is longer than the joint that connects the back beam to the wheel. The centre of rotation of the steering is then attached to the centre of rotation of the motor to ensure that the mass is evenly distributed for a more straightforward analysis of forces and torque. This also allows the wheels to rotate around a central point to perform its tasks more efficiently and smoothly. For the choice of motor, we chose a servo motor (digital servo DS3120MG) because it is efficient and relatively accurate, as well as sturdy which is important to ensure the stability of the robot. It is also compact and can be easily wired to the CNC shield V3, thus can be integrated into the code with ease. We incorporated the LEGO structure to our base by drilling holes and securing it tightly with screws and nuts. 
+
+Drive: 
+For the back wheels, we used the LEGO as well for similar reasons. We added a differential between the axles connecting the two wheels to allow for different wheel speeds. When the wheels turn, the outer wheels of the turn travel a longer distance than the wheels on the inside. Without a differential, the wheels would need to rotate at the same speed thus the turn may not be as accurate, causing over/understeering or skidding, and even reduce the manoeuvrability of the robot as it will be more difficult for it to manage sharp turns. The differential allows the wheels to rotate at different speeds while still delivering power to both wheels, thus enhancing drivability, allowing smoother turns without causing undue strain on the wheels. As these wheels can only roll back and forth, it can drive the car frontward or backward through the use of a stepper motor. We chose a stepper motor (usongshine Stepper Motor 17HS4401S) for this function as they divide a full rotation into a number of discrete steps, which allows for precise control of the motor. Each step corresponds to a specific angle, thus making it accurate. It is also easy to integrate into the code as they only require a control signal that can be easily wired in, thus being the perfect choice in driving the robot. However, due to the load weighing on it, it may affect the steps taken by the stepper motor and thus affect its accuracy. To combat this, we made it run 1000 steps before measuring the distance it ran to calculate the distance it can travel per step for a more accurate drive. Similarly, we attached this LEGO structure securely to the back of the robot with screws.
+
+Vehicle Chassis/structure 
+For the base of the robot, we used wood with the dimensions 22cm long 12cm wide by 0.8cm thick. We ensured that the robot base would not exceed the size limit, and chose even numbers such that they can easily be divided when calibrating necessary measurements. We made the length 22cm long and the width 12cm wide because we knew that there needed to be sufficient space to mount our electronics on it, thus we felt that 22cm and 12cm was large enough. The thickness was 0.8cm, which is considerably thick, but we wanted to ensure the stability and strength of the base in order to support all our parts. We used wood because it can be easily drilled through  and screws can be easily screwed in while still being securely fixed into the wood, such as mounting our components and attaching spacers. Wood is also customizable, whereby we can cut out sections if we need to attach any parts through the wood. For example, in order to attach the servo motor to the chassis, we created a small cut out such that the motor could fit in whereby the height of the front wheel and the back wheels are balanced. 
+
+Mounting of components and 3D printed parts
+On the base of our robot, we mounted 2 long-range distance sensors (SHARP distance sensors 2Y0A02) at the front and back as well as 2 short-range distance sensors (SHARP distance sensors 2Y0A21) at the sides. Through 3D printed mounts customised with multiple holes for us to screw them into the wood according to the placement of the sensor, and has holes tailored exactly to the holes on the sensors such that we can bolt them tightly with nuts with ease. On this bottom platform, we placed our batteries/battery holder here whereby we attached it via a strong Velcro. This is such that we can easily put in and take out the batteries without struggling to force them in, while ensuring that it is securely attached to the robot. To create more space to mount our components, we added spacers on the baseboard and attached a second platform such that most of the core components are mounted on the top platform. This is because there were many screw heads, nuts and bolts sticking out through the first wooden plank, thus not feasible to attach our main components, such as the ESP32 expansion board and ESP32, the CNC shield V3, Motor Driver and Arduino UNO R3, the gyroscope (9-DOF IMU Module With MPU-9250) and the OpenMV Cam H7 Plus there as it would have been too cramped and difficult to wire.  As such, they were screwed down through the attachment holes of these parts into the elevated platform for practicality and functionality. For our camera, the Open-MV Cam, we attached two 3D printed models with a bolt and nut such that we can adjust the angle of inclination of the camera in order to capture the green and red traffic bricks according to its height on the actual day of the competition, instead of just creating a rigid structure that is difficult to fine tune. The last 3D printed part that we incorporated was to connect the servo motor to our LEGO front wheels structure. Since it was made out of LEGO, thus to integrate the LEGO parts with the non-LEGO servo motor, the 3D printed part allowed for LEGO pegs to be connected to the servo motor. 
+Power and Sense of Management
+The Power Source of the Vehicle
+The vehicle is powered by 2 Liitokala 30Q batteries. This model of batteries was chosen for its high nominal capacity of 3,000mAh (3Ah), providing sufficient energy to the robot between charges. It also is capable of handling high discharge rates, making it suitable for high-drain applications, such as our robot. 
+
+Sensors 
+Distance sensors: Distance sensors were attached to each of the 4 sides of the robot. It is used to detect the distance between the 4 sides and the nearest obstacle/wall closest to it, such that the robot knows how much farther it needs to travel to get to its desired position. The Sharp GY2Y0A02YK model, an infrared sensor that uses infrared light to measure distance. When the sensors are placed at a certain distance away from a wall, we convert the analog read to voltage, and collate the data into a graph in order to find the trend for us to determine the distance sensed by these distance sensors. These sensors were chosen over other types of distance sensors for its compact size, fast response time, and suitability for close-range measurements such as object detection and proximity sensing, which is what the robot is required to do.
+Gyroscope: A gyroscope is used to detect changes in rotation angle per unit of time, such that the robot is able to determine what direction it is facing and how much more it needs to turn to reach the desired position. We used a gyroscope instead of a magnetic compass, as a magnetic compass is easily affected by external magnetic fields, such as the one created by the permanent magnets in our stepper motor’s rotor. The permanent magnets in the motor create a magnetic field that can interfere with the compass's ability to accurately align with the Earth's magnetic field, leading to inaccuracies in readings when the compass is placed near the stepper motor. The only way to combat this with limited space on the board was to place a metal shield in between the compass and stepper motor to disrupt the magnetic flow. However, by doing so, it can become magnetised itself or create secondary magnetic fields. This magnetization can interfere with the compass, potentially leading to even more inaccuracies. Thus it was more feasible to use a gyroscope as it is easier to integrate and produces relatively accurate data. 
+OpenMV camera: A camera is used to sense whether a red or green obstacle is in front of the robot. However, one such challenge that arose was that the camera standalone would not be able to determine which is the closer obstacle when it sensed both red and green in front of it, so a code comparing the widths of both obstacles (the obstacle that appeared larger to the camera would be the one closer to it) had to be incorporated in our code in order to achieve the desired result. This camera model was chosen for its high-performance processor (it is equipped with the STM32H743 microcontroller, which features a high-performance ARM Cortex-M7 core running at up to 400 MHz, providing substantial processing power for real-time image processing), built-in color tracking, its ease of use in python programming (its support for MicroPython allows for easy scripting, providing a simple and accessible interface), and its lightweight and compact size. 
+
+How They are Being Used with Power Consumption: 
+These components are wired to the ESP32 expansion board of the ESP32 through the different pins for signal, voltage (5V) and ground. The ESP32 expansion board is then connected to the batteries through a switch-like plug that can be easily removable when necessary to either cut the supply of power or to stop the code immediately. The batteries are able to then supply these sensors with power for them to operate without the need of power from the laptop through the download cable as the code can easily be downloaded through the ESP32 to carry out the desired functions. 
+
+Wiring Diagram 
+
+Obstacle Management 
+Strategy for the vehicle to negotiate the obstacle course for all challenges
+We treated the mat as an axis where each cm represents one unit, meaning that the mat covers 300 units on the x axis and 300 units on the y axis. Using the distance sensors, we can determine the coordinates where the infra-red radiation of these sensors intersect with the boundary of the mat to determine where the robot is, with the help of the data from the gyroscope. The actual coordinates and the estimated coordinates are calculated, and when the actual and estimate values obtained are similar, the actual values will be taken, but is there is a great difference, the estimated values will be used to prevent large inaccuracies, like for example when an unforeseen obstacle was placed in front of the sensors which affects the actual coordinates reflected. 
+We created two paths parallel to one another that sandwich the traffic lights. The robot will start on one path and when detecting a red/green traffic light, it will keep to the right/left path respectively. If the traffic lights are placed one after the other in the case where the camera captures both pillars, we made sure the camera could calculate the width of the block detected. The nearer block will have a larger width while the further block will have a smaller width. We coded it such that it will respond to the nearer block before the further one in order to effectively carry out the mission. 
+Strategy Flow Chart
+
+
+
+List of Components Used
+
+Parts
+Gyroscope:
+  9-DOF IMU Module With MPU-9250
+i2C expansion board:
+  I2C Interface Expans ion Module I2C Hub I2C Adapter Board
+Batteries:
+  LiitoKala New INR18650 30Q 18650 3000mAh lithium Rechargeable battery Batteries
+Camera:
+  OpenMV Cam H7 plus 
+ESP32:
+  ESP32
+Long range distance sensors:
+  SHARP Distance Sensors 2Y0A02
+Short range distance sensors:
+  SHARP Distance Sensors 2Y0A21
+Servo:
+  DS3120MG
+Stepper:
+  Usongshine Stepper Motor 17HS4401S
+Arduino:
+  Arduino UNO R3
+CNC shield:
+  CNC Shield V3
+Expansion board:
+  ESP32 Expansion Board 
+
+document link: 
+https://docs.google.com/document/d/10FWI20X7TkM9U9dYwHuSQXrZ6OWiXEs0qSeyUNagpBM/edit?usp=sharing
+
 
