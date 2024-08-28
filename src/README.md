@@ -61,7 +61,7 @@ def limit_angle(angle):
 # These laser functions returns the distance with some additions so
 # that the distance is to the center of the robot and not the sensor
 def get_front_laser():
-    m = 8.398336 #THIS WORKS AHHHH front
+    m = 8.398336 # front
     a = 849693
     
     x = float(pin.analog_read(32))  # Read the analog value within the loop
@@ -73,7 +73,7 @@ def get_front_laser():
         return 0
 
 def get_rear_laser():
-    m = 8.398336 #THIS WORKS AHHHH front
+    m = 8.398336 # rear
     a = 849693
     
     x = float(pin.analog_read(34))  # Read the analog value within the loop
@@ -85,7 +85,7 @@ def get_rear_laser():
         return 0
 
 def get_left_laser():
-    m = -1.554024 #THIS WORKS AHHHH side
+    m = -1.554024 #left side
     a = 489325.7
 
     x = float(pin.analog_read(33))  # Read the analog value within the loop
@@ -97,7 +97,7 @@ def get_left_laser():
         return 0
 
 def get_right_laser():
-    m = -1.554024 #THIS WORKS AHHHH side
+    m = -1.554024 #right side
     a = 489325.7
 
     x = float(pin.analog_read(35))  # Read the analog value within the loop
@@ -144,10 +144,6 @@ def get_laser_line_eqn(gyro_angle, pos):
 
 # Check if laser intercepts the top wall
 # Top wall eqn: y = 300
-# Combined with laser line eqn: 
-#   300 = m*x + c
-#   m*x = 300 - c
-#   x = (300 - c) / m
 def intercept_top(angle, m, c):
     # A line stretches to infinity, both forward and back, but the laser only goes forward.
     # If the laser is facing away from the wall (angle between 0 to -180), it cannot intercept the wall.
@@ -382,47 +378,42 @@ def drive_path(start, end):
 # Initialize the previous position based on the starting measured position
 prev_pos = [get_left_laser(), get_rear_laser()]
 prev_gyro_angle = 90 # starting angle is always 90
+# This is the code for blob (roadblocks) detection. This area is currently under review as the complete code has not been tested yet.
+    # while True:
+    #     matches = uart1.readline()
+    #     if matches:    # Check if code is not None and not an empty byte object
+    #         matches = matches.decode()  # Decode the byte object to a string
+    #         matches = int(matches)      # Convert the string to an integer
+    #         print(matches)     # Print the integer value
+    #                     path = 0
+    #             last_node = len(nodes) - 1
 
-# while True:
-#     matches = uart1.readline()
-#     if matches:    # Check if code is not None and not an empty byte object
-#         matches = matches.decode()  # Decode the byte object to a string
-#         matches = int(matches)      # Convert the string to an integer
-#         print(matches)     # Print the integer value
-#                     path = 0
-#             last_node = len(nodes) - 1
-
-#         if matches == 1:
-#             nodes = [
-#                 [50, 50],
-#                 [50, 250],
-#                 [250, 250],
-#                 [250, 50],
-#             ]
-#         else if matches == 2:
-#             nodes = [
-#                 [50, 50],
-#                 [50, 250],
-#                 [250, 250],
-#                 [250, 50],
-#             ]
-#         else:
-#             continue
+    #         if matches == 1:
+    #             nodes = [
+    #                 [50, 50],
+    #                 [50, 250],
+    #                 [250, 250],
+    #                 [250, 50],
+    #             ]
+    #         else if matches == 2:
+    #             nodes = [
+    #                 [50, 50],
+    #                 [50, 250],
+    #                 [250, 250],
+    #                 [250, 50],
+    #             ]
+    #         else:
+    #             continue
 
 
-# These are the corners of the lines
+# These are the different points of the map the robot has to travel to
 # nodes = [
 #     [50, 50],
 #     [50, 250],
 #     [250, 250],
 #     [250, 50],
 # ]
-nodes = [
-    [50, 160],
-    [160, 250],
-#     [250, 250],
-#     [250, 50],
-]
+
 path = 0
 last_node = len(nodes) - 1
 
